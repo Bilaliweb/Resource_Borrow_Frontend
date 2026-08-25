@@ -22,7 +22,7 @@ const bottomItems = [
   { label: 'Help', icon: HelpCircle, path: '/dashboard/help' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="fixed left-0 top-0 bottom-0 w-[232px] bg-white border-r flex flex-col z-30"
+      className={`fixed inset-y-0 left-0 z-40 flex w-[min(232px,86vw)] flex-col border-r bg-white transition-transform duration-200 md:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}
       style={{ borderColor: 'var(--color-border)' }}
     >
       {/* Logo */}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Bell, Search, ChevronDown, CheckCircle2, XCircle, Clock, ArrowRight, CheckCheck } from 'lucide-react';
+import { Bell, Search, ChevronDown, CheckCircle2, XCircle, Clock, ArrowRight, CheckCheck, Menu } from 'lucide-react';
 import { Badge, Spin } from 'antd';
 import { useAppSelector } from '@/store/hooks';
 import { notificationService } from '@/services/notification.service.ts';
@@ -44,7 +44,7 @@ const NOTIFICATION_LABELS: Record<string, string> = {
   request_cancelled: 'Request Cancelled',
 };
 
-export default function TopBar() {
+export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
   const { user } = useAppSelector((s) => s.auth);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -135,9 +135,10 @@ export default function TopBar() {
 
   return (
     <header
-      className="h-[60px] bg-white border-b flex items-center justify-between px-6 sticky top-0 z-20"
-      style={{ borderColor: 'var(--color-border)' }}
-    >
+      className="sticky top-0 z-20 flex h-[60px] items-center justify-between border-b bg-white px-4 sm:px-6"
+      style={{ borderColor: 'var(--color-border)' }}>
+      <button aria-label="Open navigation" onClick={onMenuClick} className="mr-3 flex h-9 w-9 items-center justify-center rounded-lg text-text-secondary hover:bg-canvas md:hidden"><Menu className="h-5 w-5" /></button>
+      <div className="min-w-0 flex-1">
       {/* Search */}
       <div className="relative w-[400px] max-w-[50%]">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
@@ -320,6 +321,7 @@ export default function TopBar() {
           </div>
           <ChevronDown className="w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
         </div>
+      </div>
       </div>
     </header>
   );
