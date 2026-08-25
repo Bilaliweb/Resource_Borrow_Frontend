@@ -250,7 +250,7 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-4 mb-6">
+      <div className="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         {kpiConfig.map((kpi) => {
           const Icon = kpi.icon;
           const value = kpis ? (kpis[kpi.key] as number) : 0;
