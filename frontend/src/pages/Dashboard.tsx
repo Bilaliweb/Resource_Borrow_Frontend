@@ -11,34 +11,10 @@ import type { DashboardKpis } from '../../../../backend/src/shared/src/types.ts'
 import { getAvatarColor, getInitials } from '@/utils/avatar.ts';
 
 const kpiConfig = [
-  {
-    key: 'totalRequests',
-    label: 'Total Requests',
-    icon: ClipboardList,
-    color: '#4F46E5',
-    bg: '#EEF2FF',
-  },
-  {
-    key: 'pendingRequests',
-    label: 'Pending',
-    icon: Clock,
-    color: '#F59E0B',
-    bg: '#FEF3C7',
-  },
-  {
-    key: 'activeRequests',
-    label: 'Active',
-    icon: UserCheck,
-    color: '#10B981',
-    bg: '#DCFCE7',
-  },
-  {
-    key: 'completedRequests',
-    label: 'Completed',
-    icon: CheckCircle2,
-    color: '#3B82F6',
-    bg: '#DBEAFE',
-  },
+  { key: 'totalRequests', label: 'Total Borrow Requests', helper: 'This Month', icon: ClipboardList, color: '#4F46E5', bg: '#EEF2FF' },
+  { key: 'pendingRequests', label: 'Pending Approvals', helper: 'Awaiting your action', icon: Clock, color: '#F59E0B', bg: '#FEF3C7' },
+  { key: 'activeRequests', label: 'Active Borrowings', helper: 'Ongoing', icon: UserCheck, color: '#10B981', bg: '#DCFCE7' },
+  { key: 'completedRequests', label: 'Completed', helper: 'This Month', icon: CheckCircle2, color: '#3B82F6', bg: '#DBEAFE' },
 ] as const;
 
 const STATUS_PILL_COLORS: Record<string, { bg: string; color: string }> = {
@@ -265,16 +241,16 @@ export default function Dashboard() {
     <div className="max-w-[1400px] mx-auto">
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold" style={{ color: 'var(--color-text-primary)' }}>
+        <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
           Borrow Employee
         </h1>
         <p className="text-sm mt-1" style={{ color: 'var(--color-text-muted)' }}>
-          Manage and track employee borrow requests across your organization
+          Request and manage employee borrowing across teams
         </p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-6">
         {kpiConfig.map((kpi) => {
           const Icon = kpi.icon;
           const value = kpis ? (kpis[kpi.key] as number) : 0;
@@ -295,11 +271,14 @@ export default function Dashboard() {
               >
                 <Icon className="w-5 h-5" style={{ color: kpi.color }} />
               </div>
-              <p className="text-[30px] font-bold leading-tight" style={{ color: 'var(--color-text-primary)' }}>
+              <p className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+                {kpi.label}
+              </p>
+              <p className="text-[30px] font-bold leading-tight mt-2" style={{ color: 'var(--color-text-primary)' }}>
                 {value}
               </p>
-              <p className="text-[13px] font-medium mt-1" style={{ color: 'var(--color-text-muted)' }}>
-                {kpi.label}
+              <p className="text-[13px] mt-2" style={{ color: 'var(--color-text-muted)' }}>
+                {kpi.helper}
               </p>
             </div>
           );
@@ -308,18 +287,13 @@ export default function Dashboard() {
 
       {/* Quick Actions */}
       <div
-        className="bg-white rounded-lg p-5 mb-6 flex items-center justify-between"
+        className="bg-white rounded-lg p-4 mb-6 flex flex-col justify-between gap-4 xl:col-span-1"
         style={{ border: '1px solid var(--color-border)' }}
       >
-        <div>
-          <p className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-            Quick Actions
-          </p>
-          <p className="text-[13px] mt-0.5" style={{ color: 'var(--color-text-muted)' }}>
-            Create a new borrow request or view the calendar
-          </p>
-        </div>
-        <div className="flex gap-3">
+        <p className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+          Quick Actions
+        </p>
+        <div className="flex flex-col gap-2">
           <Button
             icon={<Calendar className="w-4 h-4" />}
             className="font-medium"
