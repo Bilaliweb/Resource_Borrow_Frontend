@@ -137,10 +137,10 @@ export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
     <header
       className="sticky top-0 z-20 flex h-[60px] items-center justify-between border-b bg-white px-4 sm:px-6"
       style={{ borderColor: 'var(--color-border)' }}>
-      <button aria-label="Open navigation" onClick={onMenuClick} className="mr-3 flex h-9 w-9 items-center justify-center rounded-lg text-text-secondary hover:bg-canvas md:hidden"><Menu className="h-5 w-5" /></button>
-      <div className="min-w-0 flex-1">
+      <button aria-label="Open navigation" onClick={onMenuClick} className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-text-secondary hover:bg-canvas md:hidden"><Menu className="h-5 w-5" /></button>
       {/* Search */}
-      <div className="relative w-[400px] max-w-[50%]">
+      <div className="flex min-w-0 flex-1 justify-center px-2 sm:px-6">
+      <div className="relative w-full max-w-[520px]">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
         <input
           type="text"
@@ -153,9 +153,10 @@ export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
           }}
         />
       </div>
+      </div>
 
       {/* Right side */}
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-4">
         {/* Notification Bell + Dropdown */}
         <div className="relative" ref={panelRef}>
           <Badge count={unreadCount} size="small">
@@ -321,7 +322,6 @@ export default function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
           </div>
           <ChevronDown className="w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
         </div>
-      </div>
       </div>
     </header>
   );
