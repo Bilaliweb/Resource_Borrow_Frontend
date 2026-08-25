@@ -238,7 +238,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="max-w-[1400px] mx-auto">
+    <div className="w-full min-w-0">
       {/* Page Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
@@ -250,7 +250,7 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-6">
         {kpiConfig.map((kpi) => {
           const Icon = kpi.icon;
           const value = kpis ? (kpis[kpi.key] as number) : 0;
@@ -283,11 +283,10 @@ export default function Dashboard() {
             </div>
           );
         })}
-      </div>
 
       {/* Quick Actions */}
       <div
-        className="bg-white rounded-lg p-4 mb-6 flex flex-col justify-between gap-4 xl:col-span-1"
+        className="bg-white rounded-lg p-4 flex flex-col justify-between gap-4 xl:col-span-1"
         style={{ border: '1px solid var(--color-border)' }}
       >
         <p className="text-base font-semibold" style={{ color: 'var(--color-text-primary)' }}>
@@ -313,6 +312,7 @@ export default function Dashboard() {
             </Button>
           </Link>
         </div>
+      </div>
       </div>
 
       {/* Data Table */}
