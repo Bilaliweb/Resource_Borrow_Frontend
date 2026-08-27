@@ -4,6 +4,17 @@ export interface Role {
   id: string;
   name: string;
 }
+export interface Permission {
+  id: string;
+  key: string;
+  description: string;
+}
+
+// Frontend interface (user.service.ts line 14-17)
+export interface RoleWithPermissions extends Role {  // id, name
+  isSystemRole: boolean;
+  permissions: Permission[];  // { id, key, description }
+}
 
 export interface User {
   id: string;
@@ -65,6 +76,11 @@ export const userService = {
 
   async updateUser(id: string, data: UpdateUserData): Promise<User> {
     const res = await api.put<{ success: boolean; data: User }>(`/users/${id}`, data);
+    return res.data.data;
+  },
+
+  async getRoles(): Promise<RoleWithPermissions[]> {
+    const res = await api.get<{ success: boolean; data: RoleWithPermissions[] }>('/users/roles');
     return res.data.data;
   },
 

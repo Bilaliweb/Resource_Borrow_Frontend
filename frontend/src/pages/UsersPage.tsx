@@ -83,11 +83,18 @@ export default function UsersPage() {
     setLoading(true);
     try {
       const res = await userService.getUsers({ page, pageSize, search, role: roleFilter, status: statusFilter });
+
+      // Fetch all roles
+      const getRoles = await userService.getRoles()
+      
+      
       setUsers(res.data);
       setTotal(res.total);
       // Extract unique roles from fetched users for role selection
       const roleMap = new Map<string, Role>();
-      res.data.forEach((u) => u.roles.forEach((r) => roleMap.set(r.id, r)));
+      
+      // res.data.forEach((u) => u.roles.forEach((r) => roleMap.set(r.id, r)));
+      getRoles.forEach((r) => roleMap.set(r.id, r));
       setAvailableRoles(Array.from(roleMap.values()));
     } catch {
       message.error('Failed to load users');
